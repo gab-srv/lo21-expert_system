@@ -15,7 +15,6 @@ typedef struct {
     ListeR regles;
 } BC;
 
-// opérations
 void ajouterQueueR(ListeR *l, Regle r);
 Regle teteR(ListeR *l);
 BC creerBC();

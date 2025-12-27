@@ -19,32 +19,34 @@ void definirConclusion(Regle *r, const char *conclusion){
     strcpy(r->conclusion, conclusion);
 }
 
-void ajouterPremisse(Regle *r, char premisse){
-    ajouterQueue(&(r->premisses), premisse);
+void ajouterPremisse(Regle *r, const char *premisse){
+    char *copy = malloc(strlen(premisse) + 1);
+    strcpy(copy, premisse);
+    ajouterQueue(&(r->premisses), copy);
 }
 
-bool appartientPremisse(Regle r, char premisse){
+bool appartientPremisse(Regle r, const char *premisse){
     Liste i = r.premisses;
     while (i != NULL){
-        if (i->value == premisse)
+        if (strcmp(i->value, premisse) == 0)
             return true;
         i = i->next;
     }
     return false;
 }
 
-void supprimerPropPremisse(Regle *r, char premisse){
-    supprimerElement(&(r->premisses), premisse);
+void supprimerPropPremisse(Regle *r, const char *premisse){
+    supprimerElement(&(r->premisses), premisse); 
 }
 
 bool estVidePremisse(Regle r){
     return r.premisses == NULL;
 }
 
-char tetePremisse(Regle r){
+char* tetePremisse(Regle r){
     if (!estVidePremisse(r))
         return r.premisses->value;
-    return '\0';
+    return NULL;
 }
 
 char* conclusion(Regle r){
@@ -52,7 +54,7 @@ char* conclusion(Regle r){
 }
 
 void detruireRegle(Regle *r){
-    detruireListe(&(r->premisses)); // fonction à implémenter dans liste.c
+    detruireListe(&(r->premisses)); 
     if (r->conclusion)
         free(r->conclusion);
 }
