@@ -1,3 +1,4 @@
 *.o
 system_expert
 *.out
+.vscode
