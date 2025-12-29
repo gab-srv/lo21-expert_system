@@ -1,5 +1,4 @@
 #include "../include/bc.h"
-#include "../include/liste.h"
 #include "../include/regle.h"
 #include <stdlib.h>
 
