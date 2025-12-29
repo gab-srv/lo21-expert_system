@@ -28,9 +28,9 @@ void ajouterPremisse(Regle *r, const char *premisse){
 bool appartientPremisse(Regle r, const char *premisse){
     Liste i = r.premisses;
     while (i != NULL){
-        if (strcmp(i->value, premisse) == 0)
+        if (strcmp(i->valeur, premisse) == 0)
             return true;
-        i = i->next;
+        i = i->suivant;
     }
     return false;
 }
@@ -45,7 +45,7 @@ bool estVidePremisse(Regle r){
 
 char* tetePremisse(Regle r){
     if (!estVidePremisse(r))
-        return r.premisses->value;
+        return r.premisses->valeur;
     return NULL;
 }
 
