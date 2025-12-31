@@ -7,6 +7,10 @@ BC creerBC(){
     return B;
 }
 
+bool bcVide(BC bc)
+{
+    return bc == NULL;
+}
 void ajouterQueueR(ListeR *l, Regle r){
     listElementR* newElement = malloc(sizeof(listElementR));
     newElement->value = r;
