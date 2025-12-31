@@ -14,7 +14,7 @@ typedef listElementR* ListeR;
 typedef struct {
     ListeR regles;
 } BC;
-
+bool bcVide(BC bc);
 void ajouterQueueR(ListeR *l, Regle r);
 Regle teteR(ListeR *l);
 BC creerBC();
