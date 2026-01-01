@@ -14,7 +14,7 @@ void moteurInference(BC* bc, Liste* bf)
 
             Proposition p = tetePremisse(r_temp);
 
-            if (appartientBF(*bf, p)) {
+            if (appartient(*bf, p)) {
                 supprimerPropPremisse(r_temp, p);
             } else {
                 break;
@@ -22,7 +22,6 @@ void moteurInference(BC* bc, Liste* bf)
         }
         if (estVidePremisse(r_temp)) {
             Proposition c = conclusion(r_temp);
-            if (!appartientBF(*bf, c)) {
                 ajouterQueue(bf, c);
             }
             printf("Conclusion: %s\n", c);
