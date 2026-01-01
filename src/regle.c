@@ -39,6 +39,17 @@ void supprimerPropPremisse(Regle *r, const char *premisse){
     supprimerElement(&(r->premisses), premisse); 
 }
 
+Regle* restePremisse(Regle* r)
+{
+    if (r == NULL || estVidePremisse(r)) {
+        return NULL;
+    }
+    Regle* r_suivante = r;
+    r_suivante->premisses = r->premisses->suivant;
+
+    return r_suivante;
+}
+
 bool estVidePremisse(Regle r){
     return r.premisses == NULL;
 }
