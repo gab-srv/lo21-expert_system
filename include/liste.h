@@ -13,6 +13,7 @@ typedef struct Cellule {
 } Cellule;
 
 typedef Cellule* Liste;
+
 Liste creerListe();
 bool appartient(Liste l, char* c);
 void afficherListe(Liste l);

@@ -45,7 +45,6 @@ Liste ajouterQueue(Liste l, Element v) {
 
 Liste supprimerElement(Liste l, Element v) {
     if (!appartient(l, v)) {
-        printf("L'element '%s' n'est pas dans la liste.\n", v);
         return l; 
     }
 

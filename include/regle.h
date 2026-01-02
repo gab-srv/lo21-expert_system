@@ -10,10 +10,10 @@ typedef struct {
 } Regle;
 
 Regle creerRegle();
-void ajouterPremisse(Regle *r, const char *premisse);
-void definirConclusion(Regle *r, const char *conclusion);
+Regle ajouterPremisse(Regle r, const char *premisse);
+Regle definirConclusion(Regle r, const char *conclusion);
 bool appartientPremisse(Regle r, const char *premisse);
-void supprimerPropPremisse(Regle *r, const char *premisse);
+Regle supprimerPropPremisse(Regle r, const char *premisse);
 bool estVidePremisse(Regle r);
 char* tetePremisse(Regle r);
 char* conclusion(Regle r);

@@ -4,6 +4,7 @@
 #include "liste.h"
 #include "bc.h"
 #include "regle.h"
-void moteurInference(BC bc, Liste* bf);
+
+Liste moteurInference(BC bc, Liste bf);
 
 #endif 

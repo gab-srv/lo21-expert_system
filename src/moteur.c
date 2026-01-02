@@ -1,36 +1,35 @@
-void moteurInference(BC* bc, Liste* bf)
-{
-    while (!bcVide(bc)) {
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
 
-        Regle* r = teteBC(bc);
-        Regle* r_temp = creerRegle();
-        definirConclusion(r_temp, conclusion(r));
-        Regle* r_read = r;
-        while (!estVidePremisse(r_read)) {
-            ajouterPremisse(r_temp, tetePremisse(r_read));
-            r_read = restePremisse(r_read);
-        }
-        while (!estVidePremisse(r_temp)) {
+#include "../include/moteur.h"
+#include "../include/liste.h"
+#include "../include/regle.h"
+#include "../include/bc.h"
 
-            Proposition p = tetePremisse(r_temp);
 
-            if (appartient(*bf, p)) {
-                supprimerPropPremisse(r_temp, p);
-            } else {
-                break;
+Liste moteurInference(BC bc, Liste bf) {
+    Liste deduites = creerListe();
+    Liste faits = bf;
+
+    while (faits != NULL) {
+        char *f = faits->valeur;
+        ListeR regles = bc.regles;
+        while (regles != NULL) {
+            Regle *r = &(regles->value);
+            if (appartientPremisse(*r, f)) {
+                *r = supprimerPropPremisse(*r, f);
+                if (estVidePremisse(*r)) {
+                    char *c = conclusion(*r);
+                    if (!appartient(bf, c)) { //éviter doublons
+                        bf = ajouterQueue(bf, strdup(c));
+                        deduites = ajouterQueue(deduites, strdup(c));
+                    }
+                }
             }
+            regles = regles->next;
         }
-        if (estVidePremisse(r_temp)) {
-            Proposition c = conclusion(r_temp);
-                ajouterQueue(bf, c);
-            }
-            printf("Conclusion: %s\n", c);
-            detruireRegle(r_temp);
-            return ;
-        }
-
-        detruireRegle(r_temp);
-        bc = resteBC(bc);
+        faits = faits->suivant;
     }
-    printf("Aucune conclusion a votre probleme\n");
+    return deduites;
 }

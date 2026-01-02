@@ -1,45 +1,39 @@
-#include "../include/bc.h"
-#include "../include/regle.h"
 #include <stdlib.h>
+#include "../include/bc.h"
 
-BC creerBC(){
-    BC B = { creerListe() };
-    return B;
-}
-
-bool bcVide(BC bc)
+ListeR ajouterQueueR(ListeR L, Regle r)
 {
-    return bc == NULL;
-}
-void ajouterQueueR(ListeR *l, Regle r){
-    listElementR* newElement = malloc(sizeof(listElementR));
-    newElement->value = r;
-    newElement->next = NULL;
+    listElementR* nouv = malloc(sizeof(listElementR));
+    nouv->value = r;
+    nouv->next = NULL;
 
-    if (*l == NULL){
-        *l = newElement;
-    } else {
-        listElementR* current = *l;
-        while (current->next != NULL){
-            current = current->next;
-        }
-        current->next = newElement;
-    }
+    if (L == NULL)
+        return nouv;
+
+    ListeR courant = L;
+    while (courant->next != NULL)
+        courant = courant->next;
+
+    courant->next = nouv;
+    return L;
 }
 
-Regle teteR(ListeR *l){
-    if (*l != NULL)
-        return (*l)->value;
-    else {
-        Regle emptyRule = creerRegle();
-        return emptyRule;
-    }
+BC creerBC()
+{
+    BC bc;
+    bc.regles = NULL;
+    return bc;
 }
 
-void ajouterRegle(BC *bc, Regle r){
-    ajouterQueueR(&bc->regles, r);
+BC ajouterRegle(BC bc, Regle r)
+{
+    bc.regles = ajouterQueueR(bc.regles, r);
+    return bc;
 }
 
-Regle teteBC(BC bc){
-    return teteR(bc.regles);
+Regle* teteBC(BC bc)
+{
+    if (bc.regles == NULL)
+        return NULL;
+    return &bc.regles->value;
 }
