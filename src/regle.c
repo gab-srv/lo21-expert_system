@@ -5,7 +5,7 @@
 #include "../include/liste.h"
 #include "../include/regle.h"
 
-/* Création d'une règle */
+
 Regle creerRegle(){
     Regle r;
     r.premisses = NULL;
