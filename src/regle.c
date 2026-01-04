@@ -17,26 +17,39 @@ Regle definirConclusion(Regle r, const char *conclusion){
     if (r.conclusion != NULL) {
         free(r.conclusion);
     }
-    r.conclusion = malloc(strlen(conclusion) + 1);
-    strcpy(r.conclusion, conclusion);
+    r.conclusion = strdup(conclusion);
     return r;
 }
 
 Regle ajouterPremisse(Regle r, const char *premisse) {
-    char *copy = malloc(strlen(premisse) + 1);
-    strcpy(copy, premisse);
+    char *copy = strdup(premisse);
     r.premisses = ajouterQueue(r.premisses, copy);
     return r;
 }
 
-bool appartientPremisse(Regle r, const char *premisse){
-    Liste i = r.premisses;
-    while (i != NULL) {
-        if (strcmp(i->valeur, premisse) == 0)
-            return true;
+/*bool appartientPremisse(Regle r, const char *premisse){
+    Liste i = r.premisses; 
+    while (i != NULL){ 
+        if (strcmp(i->valeur, premisse) == 0) {
+            return true; 
+        }
         i = i->suivant;
-    }
+    } 
     return false;
+}Version non itérative pour appartientPremisse*/
+
+bool appartientPremisseRecursif(Liste l, const char *premisse) {
+    if (l == NULL) {
+        return false;
+    }
+    if (strcmp(l->valeur, premisse) == 0) {
+        return true;
+    }
+    return appartientPremisseRecursif(l->suivant, premisse);
+}
+
+bool appartientPremisse(Regle r, const char *premisse) {
+    return appartientPremisseRecursif(r.premisses, premisse);
 }
 
 Regle supprimerPropPremisse(Regle r, const char *premisse) {
